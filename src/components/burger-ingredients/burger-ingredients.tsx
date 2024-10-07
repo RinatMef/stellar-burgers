@@ -1,14 +1,40 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-
-import { TTabMode } from '@utils-types';
+import { AppDispatch, RootState } from 'src/services/store';
+import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from '@reduxjs/toolkit';
+import {
+  getIngredients,
+  selectedAllIngredients
+} from '../../services/slices/ingredientsSlice';
+
+const selectBuns = createSelector(
+  (state: RootState) => state.ingredients.items,
+  (items: TIngredient[]) => items.filter((item) => item.type === 'bun')
+);
+
+const selectMains = createSelector(
+  (state: RootState) => state.ingredients.items,
+  (items: TIngredient[]) => items.filter((item) => item.type === 'main')
+);
+
+const selectSauces = createSelector(
+  (state: RootState) => state.ingredients.items,
+  (items: TIngredient[]) => items.filter((item) => item.type === 'sauce')
+);
 
 export const BurgerIngredients: FC = () => {
-  /** TODO: взять переменные из стора */
-  const buns = [];
-  const mains = [];
-  const sauces = [];
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
+
+  const buns = useSelector(selectBuns);
+  const mains = useSelector(selectMains);
+  const sauces = useSelector(selectSauces);
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
@@ -46,8 +72,6 @@ export const BurgerIngredients: FC = () => {
     if (tab === 'sauce')
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  return null;
 
   return (
     <BurgerIngredientsUI

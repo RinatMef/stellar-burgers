@@ -17,6 +17,15 @@ export type TConstructorIngredient = TIngredient & {
 };
 
 export type TOrder = {
+  order: {
+    _id: string;
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    ingredients: string[];
+  } | null;
   _id: string;
   status: string;
   name: string;
