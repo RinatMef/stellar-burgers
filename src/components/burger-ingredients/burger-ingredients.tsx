@@ -1,14 +1,10 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { AppDispatch, RootState } from 'src/services/store';
+import { RootState } from 'src/services/store';
 import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from '../../services/store';
 import { createSelector } from '@reduxjs/toolkit';
-import {
-  getIngredients,
-  selectedAllIngredients
-} from '../../services/slices/ingredientsSlice';
 
 const selectBuns = createSelector(
   (state: RootState) => state.ingredients.items,
@@ -26,12 +22,6 @@ const selectSauces = createSelector(
 );
 
 export const BurgerIngredients: FC = () => {
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, []);
-
   const buns = useSelector(selectBuns);
   const mains = useSelector(selectMains);
   const sauces = useSelector(selectSauces);

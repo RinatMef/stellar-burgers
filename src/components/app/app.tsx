@@ -14,14 +14,13 @@ import styles from './app.module.css';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../protectedRoutes/protectedRoutes';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { useDispatch } from 'react-redux';
-import { checkUserAuth } from '../../services/slices/userSlice'; // Убедитесь, что импортируете правильный action
-import { AppDispatch } from '../../services/store';
+import { useDispatch } from '../../services/store';
+import { checkUserAuth } from '../../services/slices/userSlice';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 const App = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,7 +34,6 @@ const App = () => {
 
   const background = location.state?.background;
 
-  console.log('render');
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -82,14 +80,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path='/feed'
-          element={
-            <ProtectedRoute>
-              <Feed />
-            </ProtectedRoute>
-          }
-        />
+        <Route path='/feed' element={<Feed />} />
         <Route
           path='/profile/orders'
           element={

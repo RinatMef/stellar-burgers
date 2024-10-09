@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useSelector, useDispatch } from 'react-redux'; // useDispatch нужно импортировать
+import { useDispatch, useSelector } from '../../services/store';
 import { getOrderByNum, orderSelect } from '../../services/slices/orderSlice';
 import {
   getIngredients,
@@ -16,10 +16,10 @@ export const OrderInfo: FC = () => {
   const ingredients: TIngredient[] = useSelector(selectedAllIngredients);
   const { number } = useParams();
   const orderNumber = number ? parseInt(number, 10) : undefined;
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
+    // dispatch(getIngredients());
     if (orderNumber) {
       dispatch(getOrderByNum(orderNumber));
     }

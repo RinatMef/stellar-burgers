@@ -8,22 +8,21 @@ import {
   getIngredients,
   selectedAllIngredients
 } from '../../services/slices/ingredientsSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 
 const maxIngredients = 6;
 
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
 
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
   const ingredients = useSelector(selectedAllIngredients);
-  useEffect(() => {
-    // Если ингредиенты не загружены (length === 0), выполняем запрос
-    if (ingredients.length === 0) {
-      dispatch(getIngredients());
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // Если ингредиенты не загружены (length === 0), выполняем запрос
+  //   if (ingredients.length === 0) {
+  //     dispatch(getIngredients());
+  //   }
+  // }, [dispatch]);
 
   /** TODO: взять переменную из стора */
   // const ingredients: TIngredient[] = [];

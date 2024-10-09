@@ -104,7 +104,6 @@ export const loginUser = createAsyncThunk(
       const response = await loginUserApi(user);
       setCookie('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
-      console.log(response);
       return response.user;
     } catch (error) {
       return rejectWithValue('Ошибка при входе пользователя');
@@ -184,14 +183,11 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-
 export const selectUser = (state: RootState) => state.user.user;
 export const selectUserName = createSelector(
   [selectUser],
   (user) => user?.name
 );
 export const selectIsLoading = (state: RootState) => state.user.isLoading;
-
 export const { setUser, checkAuth } = userSlice.actions;
-
 export const selectIsCheckAuth = (state: RootState) => state.user.isCheckAuth;

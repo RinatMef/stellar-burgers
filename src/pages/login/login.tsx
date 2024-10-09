@@ -1,16 +1,14 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 import { loginUser, selectUser } from '../../services/slices/userSlice';
-import { TUser } from '@utils-types';
-import { TLoginData, TRegisterData } from '@api';
-import { AppDispatch } from '../../services/store';
+
+import { TLoginData } from '@api';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch: AppDispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
