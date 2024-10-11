@@ -29,18 +29,7 @@ const initialState: IFeedState = {
   totalToday: 0
 };
 
-export const fetchFeeds = createAsyncThunk(
-  'feed/getFeeds',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getFeedsApi();
-
-      return response;
-    } catch (error) {
-      return rejectWithValue('Ошибка при получении заказов.');
-    }
-  }
-);
+export const fetchFeeds = createAsyncThunk('feed/getFeeds', getFeedsApi);
 
 const feedsSlice = createSlice({
   name: 'feed',

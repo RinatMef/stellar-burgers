@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { selectIsCheckAuth, selectUser } from '../../services/slices/userSlice';
 import { Preloader } from '@ui';
+import { useSelector } from '../../services/store';
 
 type ProtectedRouteProps = {
   children: React.ReactElement;

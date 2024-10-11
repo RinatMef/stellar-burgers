@@ -10,7 +10,6 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 
-// Комбинируем все редьюсеры
 const rootReducer = combineReducers({
   user: userReducer,
   ingredients: ingredientsReducer,
@@ -19,14 +18,13 @@ const rootReducer = combineReducers({
   feeds: feedsReducer
 });
 
-// Создаём store, используя rootReducer
 const store = configureStore({
-  reducer: rootReducer, // Используем rootReducer здесь
-  devTools: process.env.NODE_ENV !== 'production' // Включаем devTools только в dev-среде
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production'
 });
 
-export type RootState = ReturnType<typeof store.getState>; // Экспортируем тип состояния
-export type AppDispatch = typeof store.dispatch; // Экспортируем тип dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 export const useDispatch: () => AppDispatch = () => dispatchHook();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 

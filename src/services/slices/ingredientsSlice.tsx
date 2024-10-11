@@ -17,17 +17,9 @@ const initialState: IngredientState = {
   selectedIngredient: null
 };
 
-// Асинхронный thunk для получения ингредиентов
 export const getIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getIngredientsApi();
-      return response;
-    } catch (error) {
-      return rejectWithValue('Ошибка при получении ингредиентов');
-    }
-  }
+  getIngredientsApi
 );
 
 export const ingredientsSlice = createSlice({

@@ -15,7 +15,6 @@ export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     if (orderNumber) {
       dispatch(getOrderByNum(orderNumber));
     }
@@ -65,6 +64,6 @@ export const OrderInfo: FC = () => {
   if (!orderInfo) {
     return <Preloader />;
   }
-
+  console.log(orderInfo);
   return <OrderInfoUI orderInfo={orderInfo} />;
 };

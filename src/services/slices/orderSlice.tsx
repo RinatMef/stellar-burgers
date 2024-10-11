@@ -1,10 +1,9 @@
 import {
   createSlice,
-  PayloadAction,
   createSelector,
   createAsyncThunk
 } from '@reduxjs/toolkit';
-import { TOrder, TUser } from '@utils-types';
+import { TOrder } from '@utils-types';
 import {
   getOrdersApi,
   orderBurgerApi,
@@ -32,18 +31,7 @@ const initialState: IOrderState = {
   error: null
 };
 
-export const fetchOrders = createAsyncThunk(
-  'order/getOrders',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getOrdersApi();
-
-      return response;
-    } catch (error) {
-      return rejectWithValue('Ошибка при получении заказов.');
-    }
-  }
-);
+export const fetchOrders = createAsyncThunk('order/getOrders', getOrdersApi);
 
 export const postOrders = createAsyncThunk<TNewOrderResponse, string[]>(
   'order/postOrders',
@@ -67,6 +55,7 @@ export const getOrderByNum = createAsyncThunk(
       if (!order) {
         return rejectWithValue('Ордер не найден');
       }
+
       return order;
     } catch (error) {
       console.error('Ошибка при получении заказов:', error);
@@ -142,7 +131,10 @@ export const orderSelect = createSelector(
   selectOrderSlice,
   (state) => state.order
 );
-export const ordersProfile = (state: RootState): TOrder[] =>
-  state.order.userOrder ?? [];
+
+export const ordersProfile = createSelector(
+  selectOrderSlice,
+  (orderState) => orderState.userOrder ?? []
+);
 
 export const { clearOrderModal } = orderSlice.actions;

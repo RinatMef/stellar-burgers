@@ -11,7 +11,14 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  useParams,
+  useMatch
+} from 'react-router-dom';
 import { ProtectedRoute } from '../protectedRoutes/protectedRoutes';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useDispatch } from '../../services/store';
@@ -23,6 +30,9 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const profileMatch = useMatch('profile/orders/:number')?.params.number;
+  const feedMatch = useMatch('feed/:number')?.params.number;
+  const orderNumber = profileMatch || feedMatch;
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -100,7 +110,7 @@ const App = () => {
             path='/feed/:number'
             element={
               <Modal
-                title='OrderInfo'
+                title={`#${orderNumber ? orderNumber.padStart(6, '0') : 'недоступен'}`}
                 onClose={() => {
                   navigate(-1);
                 }}
@@ -127,7 +137,7 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Modal
-                  title='Заказ'
+                  title={`#${orderNumber ? orderNumber.padStart(6, '0') : 'недоступен'}`}
                   onClose={() => {
                     navigate(-1);
                   }}
