@@ -18,8 +18,9 @@ import {
   TRegisterData,
   TLoginData
 } from '@api';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
-import { RootState } from '../store';
+import { deleteCookie, getCookie, setCookie } from '../../../utils/cookie';
+import { RootState } from '../../store';
+import { stat } from 'fs';
 
 interface IUserState {
   success: boolean;
@@ -104,7 +105,7 @@ export const loginUser = createAsyncThunk(
       const response = await loginUserApi(user);
       setCookie('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
-      return response.user;
+      return response;
     } catch (error) {
       return rejectWithValue('Ошибка при входе пользователя');
     }
@@ -151,10 +152,10 @@ const userSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.success = false;
+        state.success = true;
         state.isLoading = false;
         state.error = null;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;

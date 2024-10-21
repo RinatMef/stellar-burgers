@@ -1,18 +1,16 @@
 import {
   createSlice,
-  PayloadAction,
   createSelector,
   createAsyncThunk
 } from '@reduxjs/toolkit';
 import { TOrder, TUser } from '@utils-types';
 import { getFeedsApi } from '@api';
-
-import { RootState } from '../store';
+import { RootState } from 'src/services/store';
 
 interface IFeedState {
   success: boolean;
   orders: TOrder[];
-  name: string | null;
+  name?: string | null;
   isLoading: boolean;
   error: string | null;
   total: number;
@@ -51,6 +49,7 @@ const feedsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.orders = action.payload.orders;
+        state.success = true;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
       });

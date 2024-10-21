@@ -6,10 +6,13 @@ import {
   clearConstructor,
   selectBun,
   selectIngridients
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/constructorSlise/ConstructorSlice';
 import { useNavigate } from 'react-router-dom';
-import { clearOrderModal, postOrders } from '../../services/slices/orderSlice';
-import { selectUser } from '../../services/slices/userSlice';
+import {
+  clearOrderModal,
+  postOrders
+} from '../../services/slices/orderSlice/orderSlice';
+import { selectUser } from '../../services/slices/userSlice/userSlice';
 import { RootState } from '../../services/store';
 
 export const BurgerConstructor: FC = () => {
