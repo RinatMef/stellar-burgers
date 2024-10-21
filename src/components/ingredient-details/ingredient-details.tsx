@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useLocation, useParams } from 'react-router-dom';
-import { setSelectedIngredient } from '../../services/slices/ingredientsSlice';
+import { setSelectedIngredient } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 import { TIngredient } from '@utils-types';
 import { RootState, useDispatch, useSelector } from '../../services/store';
 

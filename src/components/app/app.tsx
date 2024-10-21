@@ -22,9 +22,9 @@ import {
 import { ProtectedRoute } from '../protectedRoutes/protectedRoutes';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useDispatch } from '../../services/store';
-import { checkUserAuth } from '../../services/slices/userSlice';
+import { checkUserAuth } from '../../services/slices/userSlice/userSlice';
 import { useEffect } from 'react';
-import { getIngredients } from '../../services/slices/ingredientsSlice';
+import { getIngredients } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 
 const App = () => {
   const dispatch = useDispatch();

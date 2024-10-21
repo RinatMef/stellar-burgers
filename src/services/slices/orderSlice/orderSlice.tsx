@@ -11,7 +11,7 @@ import {
   getOrderByNumberApi
 } from '@api';
 
-import { RootState } from '../store';
+import { RootState } from '../../store';
 
 interface IOrderState {
   success: boolean;
@@ -71,6 +71,7 @@ const orderSlice = createSlice({
     clearOrderModal: (state) => {
       state.order = null;
       state.success = false;
+      state.name = null;
     }
   },
   extraReducers: (builder) => {
@@ -82,7 +83,6 @@ const orderSlice = createSlice({
       .addCase(getOrderByNum.rejected, (state, action) => {
         state.success = false;
         state.error = action.payload as string;
-
         state.isLoading = false;
       })
       .addCase(getOrderByNum.fulfilled, (state, action) => {
